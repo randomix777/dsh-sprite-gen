@@ -17,6 +17,7 @@ Godot Sprite Sheet Generator with AI Image Generation for DeepSeek Harness.
 |----------|-------|--------|---------|
 | Gemini Flash | gemini-2.0-flash-exp | 60/day | Required |
 | Stable Diffusion | sdxl | 100/day | Required |
+| Agnes AI | agnes-image-2.1-flash | Free forever | Required |
 
 ## Installation
 
