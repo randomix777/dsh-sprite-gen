@@ -1,0 +1,12 @@
+﻿# Godot Sprite Sheet Generator - DSH Plugin Configuration
+#
+# Supports AI image generation and sprite sheet creation
+# with settings panel in DSH UI.
+#
+# Usage in cordis.patch.yml:
+#   - id: godot-sprite
+#     name: 'dsh-godot-sprite'
+
+- insert:
+  - id: godot-sprite
+    name: './lib/index.js'

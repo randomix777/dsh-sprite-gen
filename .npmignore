@@ -1,0 +1,19 @@
+﻿# Source (keep lib/ built output, exclude src/)
+src/
+scripts/
+
+# Development
+test*
+*.test.*
+*.spec.*
+__pycache__/
+*.pyc
+tests/
+.DS_Store
+
+# Git
+.git
+.gitignore
+
+# Node
+node_modules/
