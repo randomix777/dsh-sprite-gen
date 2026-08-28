@@ -1,4 +1,7 @@
-﻿# Godot Sprite Generator - 使用技能
+﻿# Godot Sprite Generator - Usage
+
+> See README.md for full API reference.
+
 
 ## 快速开始
 
