@@ -26,6 +26,7 @@ def generate_sprite_sheet(args):
     spacing = args.get('spacing', 0)
     cell_width = args.get('cell_width', 32)
     cell_height = args.get('cell_height', 32)
+    # Transparent pixel threshold for auto-crop (0-255)
     transparent_threshold = args.get('transparent_threshold', 1)
     output_path = args.get('output_path', './output/sprite_sheet.png')
     padding = args.get('padding', 0)
