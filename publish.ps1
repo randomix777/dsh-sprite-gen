@@ -1,4 +1,6 @@
-﻿#!/usr/bin/env pwsh
+﻿# PowerShell deployment helper
+# Use: .publish.ps1 --PushToGitHub --GitHubRepo randomix777/dsh-godot-sprite
+
 # dsh-godot-sprite 发布脚本
 
 param(
