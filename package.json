@@ -1,6 +1,6 @@
 ﻿{
   "name": "dsh-godot-sprite",
-  "version": "2.0.0",
+  "version": "2.3.0",
   "description": "Godot Sprite Sheet Generator with AI Image Generation",
   "type": "module",
   "main": "lib/index.js",
