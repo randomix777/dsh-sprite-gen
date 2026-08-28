@@ -27,6 +27,31 @@ Godot Sprite Sheet Generator with AI Image Generation for DeepSeek Harness.
 | Agnes AI | agnes-image-2.1-flash | Subscription | Required |
 | Custom | Any | Varies | Required |
 
+## Features
+
+- 🎨 **AI Image Generation** - Generate sprites directly with AI
+- 🔌 **Multiple Providers** - Support for free and paid services
+- ✂️ **Auto-crop** - Automatically remove transparent edges
+- 📐 **Grid Arrangement** - Configurable sprite sheet layouts
+- 🎮 **Godot Ready** - Output compatible with Godot AnimationPlayer
+- ⚙️ **Customizable** - Full configuration support
+
+## Supported Providers
+
+### Free Providers
+| Provider | Model | Limits | API Key |
+|----------|-------|--------|---------|
+| Gemini Flash | gemini-2.0-flash-exp | 60/day | Required |
+| Stable Diffusion | sdxl | 100/day | Required |
+
+### Paid Providers
+| Provider | Model | Cost | API Key |
+|----------|-------|------|---------|
+| OpenAI DALL-E 3 | dall-e-3 | $0.04-0.08/img | Required |
+| Seedream | doubao-seedream-4-3-256k | Credits | Required |
+| Agnes AI | agnes-image-2.1-flash | Subscription | Required |
+| Custom | Any | Varies | Required |
+
 ## Installation
 
 ```bash
