@@ -19,6 +19,12 @@ const PROVIDERS = [
   { id: 'openai', name: 'OpenAI DALL-E 3', free: false },
   { id: 'seedream', name: 'Seedream', free: false },
   { id: 'agnes', name: 'Agnes AI', free: false },
+  { id: 'deepseek', name: 'DeepSeek', free: false },
+  { id: 'minimax', name: 'MiniMax', free: false },
+  { id: 'flux', name: 'Flux (Black Forest Labs)', free: false },
+  { id: 'baidu_ernie', name: 'Baidu Wenxin Yige (文心一格)', free: false },
+  { id: 'tencent_hunyuan', name: 'Tencent Hunyuan (混元)', free: false },
+  { id: 'aliyun_wanx', name: 'Aliyun Wanxiang (通义万相)', free: false },
   { id: 'custom', name: 'Custom (OpenAI Compatible)', free: false }
 ];
 
