@@ -281,6 +281,26 @@ if __name__ == '__main__':
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         result = mod.gif_export(args)
+    elif cmd == 'tiled_export':
+        spec = importlib.util.spec_from_file_location("tiled_export", os.path.join(os.path.dirname(__file__), "tiled_export.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        result = mod.tiled_export(args)
+    elif cmd == 'aseprite_import':
+        spec = importlib.util.spec_from_file_location("aseprite_import", os.path.join(os.path.dirname(__file__), "aseprite_import.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        result = mod.aseprite_import(args)
+    elif cmd == 'tileset_batch':
+        spec = importlib.util.spec_from_file_location("tileset_batch", os.path.join(os.path.dirname(__file__), "tileset_batch.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        result = mod.tileset_batch(args)
+    elif cmd == 'video2dsprite':
+        spec = importlib.util.spec_from_file_location("video2dsprite", os.path.join(os.path.dirname(__file__), "video2dsprite.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        result = mod.video_to_sprite(args)
     else:
         result = generate_sprite_sheet(args)
     print(json.dumps(result))
