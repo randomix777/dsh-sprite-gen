@@ -311,6 +311,31 @@ if __name__ == '__main__':
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         result = mod.sprite_detect(args)
+    elif cmd == 'prop_pack':
+        spec = importlib.util.spec_from_file_location("prop_pack", os.path.join(os.path.dirname(__file__), "prop_pack.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        result = mod.prop_pack(args)
+    elif cmd == 'prop_pack_generate':
+        spec = importlib.util.spec_from_file_location("prop_pack", os.path.join(os.path.dirname(__file__), "prop_pack.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        result = mod.prop_pack_generate(args)
+    elif cmd == 'scene_object':
+        spec = importlib.util.spec_from_file_location("scene_objects", os.path.join(os.path.dirname(__file__), "scene_objects.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        result = mod.scene_object(args)
+    elif cmd == 'scene_object_batch':
+        spec = importlib.util.spec_from_file_location("scene_objects", os.path.join(os.path.dirname(__file__), "scene_objects.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        result = mod.scene_object_batch(args)
+    elif cmd == 'anchor_layout':
+        spec = importlib.util.spec_from_file_location("anchor_layout", os.path.join(os.path.dirname(__file__), "anchor_layout.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        result = mod.build_anchor_layout(args)
     else:
         result = generate_sprite_sheet(args)
     print(json.dumps(result))

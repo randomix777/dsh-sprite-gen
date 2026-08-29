@@ -86,6 +86,16 @@ pnpm add file:/path/to/dsh-sprite-gen
 | `sprite_character_sheet` | Multi-view character sheet (front/side/back) with consistent appearance |
 | `sprite_character_views` | List available view types for character sheet |
 
+### Props & Scene Objects
+
+| Tool | Description |
+|------|-------------|
+| `sprite_generate_prop_pack` | Generate + extract a batch of related props (rock, barrel, torch, chest…) from a sheet |
+| `sprite_extract_prop_pack` | Chroma-key extract individual props from an existing prop sheet |
+| `sprite_scene_object` | Generate/extract a single game-ready scene object with collision bbox metadata |
+| `sprite_scene_object_batch` | Batch-extract multiple scene objects from a multi-object sheet |
+| `sprite_anchor_layout` | Build fixed-scale anchor template from accepted master frame for multi-view consistency |
+
 ## Usage Examples
 
 ### Generate Character with Animation
