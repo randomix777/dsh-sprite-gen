@@ -301,6 +301,16 @@ if __name__ == '__main__':
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         result = mod.video_to_sprite(args)
+    elif cmd == 'palette_quantize':
+        spec = importlib.util.spec_from_file_location("palette_quantize", os.path.join(os.path.dirname(__file__), "palette_quantize.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        result = mod.palette_quantize(args)
+    elif cmd == 'sprite_detect':
+        spec = importlib.util.spec_from_file_location("sprite_detector", os.path.join(os.path.dirname(__file__), "sprite_detector.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        result = mod.sprite_detect(args)
     else:
         result = generate_sprite_sheet(args)
     print(json.dumps(result))
