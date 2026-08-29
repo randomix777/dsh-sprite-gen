@@ -336,6 +336,16 @@ if __name__ == '__main__':
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         result = mod.build_anchor_layout(args)
+    elif cmd == 'tileset_batch_v2':
+        spec = importlib.util.spec_from_file_location("tileset_batch_v2", os.path.join(os.path.dirname(__file__), "tileset_batch_v2.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        result = mod.tileset_batch(args)
+    elif cmd == 'platform_strip':
+        spec = importlib.util.spec_from_file_location("platform_strip", os.path.join(os.path.dirname(__file__), "platform_strip.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        result = mod.build_strip(args)
     else:
         result = generate_sprite_sheet(args)
     print(json.dumps(result))

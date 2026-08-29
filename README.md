@@ -96,6 +96,13 @@ pnpm add file:/path/to/dsh-sprite-gen
 | `sprite_scene_object_batch` | Batch-extract multiple scene objects from a multi-object sheet |
 | `sprite_anchor_layout` | Build fixed-scale anchor template from accepted master frame for multi-view consistency |
 
+### Terrain & Platforms
+
+| Tool | Description |
+|------|-------------|
+| `sprite_tileset_batch_qc` | Enhanced terrain tile bundle with edge_policy (isolated/seamless), contrast QC, pairwise PSNR variant-diff, material hints |
+| `sprite_platform_strip` | Reusable side-scrolling platform strips (left/middle/right cap) with collision metadata |
+
 ## Usage Examples
 
 ### Generate Character with Animation
