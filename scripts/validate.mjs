@@ -1,4 +1,4 @@
-// Validation script for dsh-godot-sprite plugin
+// Validation script for dsh-sprite-gen plugin
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 
@@ -8,7 +8,7 @@ const root = new URL('../', import.meta.url).pathname.replace(/^\/+/, '');
 const clientBundle = fs.readFileSync(root + 'lib/client.js', 'utf8');
 const clientChecks = [
   ['window.__ModuleLoader__.load({', 'loader wrapper'],
-  ['"dsh-godot-sprite"', 'plugin id'],
+  ['"dsh-sprite-gen"', 'plugin id'],
   ['factory: (require) =>', 'factory function'],
   ['return module.exports;', 'module return'],
   ['exports.apply = apply', 'apply export'],

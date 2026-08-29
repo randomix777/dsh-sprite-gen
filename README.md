@@ -1,15 +1,20 @@
-﻿# dsh-godot-sprite
+# dsh-sprite-gen
 
-Godot Sprite Sheet Generator with AI Image Generation for DeepSeek Harness.
+Sprite Sheet Generator with AI Image Generation for DeepSeek Harness.
 
 ## Features
 
-- 🎨 **AI Image Generation** - Generate sprites directly with AI
-- 🔌 **Multiple Providers** - Support for free services
-- ✂️ **Auto-crop** - Automatically remove transparent edges
-- 📐 **Grid Arrangement** - Configurable sprite sheet layouts
-- 🎮 **Godot Ready** - Output compatible with Godot AnimationPlayer
-- ⚙️ **Customizable** - Full configuration support
+- ?? **AI Image Generation** - Generate sprites directly with AI
+- ?? **4 Providers** - Gemini Flash, Stable Diffusion, Agnes AI, ComfyUI (local)
+- ?? **Auto-crop** - Automatically remove transparent edges
+- ?? **Grid Arrangement** - Configurable sprite sheet layouts
+- ?? **Cutout + Validation** - Distance-threshold background removal with bbox crop, scale, and quality checks
+- ?? **Animation Sequences** - Multi-frame walk/jump/attack/idle with reference consistency
+- ??? **Parallax Backgrounds** - 3-layer side-scroller backgrounds (sky/mid/foreground)
+- ?? **Effects Generation** - Bullets, fire, explosions, smoke, sparks
+- ?? **Weapon/Equipment Sprites** - Guns, swords, armor, helmets
+- ?? **Batch Generation** - Generate multiple assets in one call
+- ?? **Godot Ready** - Output compatible with Godot AnimationPlayer
 
 ## Supported Providers
 
@@ -18,113 +23,170 @@ Godot Sprite Sheet Generator with AI Image Generation for DeepSeek Harness.
 | Gemini Flash | gemini-2.0-flash-exp | 60/day | Required |
 | Stable Diffusion | sdxl | 100/day | Required |
 | Agnes AI | agnes-image-2.1-flash | Free forever | Required |
+| ComfyUI | sdxl (local) | Unlimited | Not needed |
 
 ## Installation
 
 ```bash
 # From GitHub
-dsh plugin --profile web add github:randomix777/dsh-godot-sprite
+dsh plugin --profile web add github:randomix777/dsh-sprite-gen
 
 # Manual
 cd ~/.dsh/profiles/web
-pnpm add file:/path/to/dsh-godot-sprite
+pnpm add file:/path/to/dsh-sprite-gen
 ```
 
-## Usage
+## Available Tools
 
-### Generate Image + Sprite Sheet (Recommended)
+### Core Tools
+
+| Tool | Description |
+|------|-------------|
+| `sprite_sprite_config` | Manage API keys, providers, and defaults |
+| `sprite_generate_image` | Generate image + convert to sprite sheet |
+| `sprite_sprite_sheet` | Process existing image into sprite sheet |
+| `sprite_cutout` | Background cutout with validation |
+| `sprite_sprite_info` | View plugin info and configuration |
+
+### Animation & Effects
+
+| Tool | Description |
+|------|-------------|
+| `sprite_animation_sequence` | Generate multi-frame animation from reference |
+| `sprite_animation_list` | List available animation types |
+| `sprite_generate_effect` | Generate effect sprites (bullets, fire, etc.) |
+| `sprite_effect_list` | List available effect types |
+| `sprite_generate_weapon` | Generate weapon/equipment sprites |
+| `sprite_weapon_list` | List available weapon types |
+
+### Advanced
+
+| Tool | Description |
+|------|-------------|
+| `sprite_batch_generate` | Batch generate multiple AI sprites |
+| `sprite_batch_process` | Batch process multiple images |
+| `sprite_generate_background` | Generate 3-layer parallax backgrounds |
+
+## Usage Examples
+
+### Generate Character with Animation
 
 ```javascript
-godot_generate_image({
-  prompt: "pixel art character sprite, idle pose, 32x32",
-  provider: "gemini_flash",
-  width: 128,
-  height: 128,
-  grid_cols: 4,
-  grid_rows: 4,
-  crop_mode: "auto",
-  output_path: "./sprites/character.png"
+// 1. Generate base character
+sprite_generate_image({
+  prompt: "female survivor pixel art character, idle pose, detailed 32-bit pixel art",
+  provider: "agnes",
+  width: 1024, height: 1536,
+  output_path: "./sprites/player_base.png"
+})
+
+// 2. Cutout and validate
+sprite_cutout({
+  image_path: "./sprites/player_base.png",
+  output_path: "./sprites/player_clean.png",
+  target_width: 512, target_height: 768
+})
+
+// 3. Generate walk cycle
+sprite_animation_sequence({
+  sequence: "player_run",
+  reference_image_path: "./sprites/player_clean.png",
+  output_path: "./sprites/player_run.png"
+})
+
+// 4. Generate jump animation
+sprite_animation_sequence({
+  sequence: "player_jump",
+  reference_image_path: "./sprites/player_clean.png",
+  output_path: "./sprites/player_jump.png"
+})
+
+// 5. Generate attack animation
+sprite_animation_sequence({
+  sequence: "player_shoot",
+  reference_image_path: "./sprites/player_clean.png",
+  output_path: "./sprites/player_shoot.png"
 })
 ```
 
-### Generate Sprite Sheet from Existing Image
+### Generate Effects
 
 ```javascript
-godot_sprite_sheet({
-  image_path: "input.png",
-  grid_cols: 4,
-  grid_rows: 4,
-  crop_mode: "auto",
-  spacing: 0,
-  output_path: "./output/sheet.png"
+// List available effects
+sprite_effect_list()
+
+// Generate bullet effects
+sprite_generate_effect({ effect: "bullet_trail", output_path: "./effects/bullet.png" })
+sprite_generate_effect({ effect: "bullet_impact", output_path: "./effects/impact.png" })
+sprite_generate_effect({ effect: "fire_explosion", output_path: "./effects/explosion.png" })
+```
+
+### Generate Weapons
+
+```javascript
+// List weapons
+sprite_weapon_list()
+
+// Generate weapon sprites
+sprite_generate_weapon({ weapon: "assault_rifle", output_path: "./weapons/rifle.png" })
+sprite_generate_weapon({ weapon: "pistol_9mm", output_path: "./weapons/pistol.png" })
+```
+
+### Batch Generation
+
+```javascript
+// Generate multiple characters at once
+sprite_batch_generate({
+  provider: "agnes",
+  items: [
+    { prompt: "female survivor pixel art", output_path: "./sprites/female.png" },
+    { prompt: "male raider pixel art", output_path: "./sprites/raider.png" },
+    { prompt: "zombie enemy pixel art", output_path: "./sprites/zombie.png" },
+  ]
 })
 ```
 
-### Configuration
+### Parallax Background
 
 ```javascript
+sprite_generate_background({
+  character_prompt: "post-apocalyptic survivor in wasteland",
+  character_image_url: "https://example.com/character.png",
+  provider: "agnes"
+})
+```
+
+### ComfyUI (Local SD)
+
+```javascript
+// Ensure ComfyUI is running on http://127.0.0.1:8188
+sprite_generate_image({
+  prompt: "pixel art character sprite",
+  provider: "comfy",
+  width: 512, height: 512
+})
+```
+
+## Configuration
+
+```javascript
+// Set Agnes API key
+sprite_sprite_config({
+  action: "set_key",
+  provider: "agnes",
+  api_key: "your_key_here"
+})
+
+// Switch default provider
+sprite_sprite_config({ action: "set_provider", provider: "agnes" })
+
 // List providers
-godot_sprite_config({ action: "list" })
-
-// Set default provider
-godot_sprite_config({ action: "set_provider", default_provider: "gemini_flash" })
-
-// Set API key
-godot_sprite_config({ action: "set_key", provider: "gemini_flash", api_key: "YOUR_API_KEY" })
-
-// Get defaults
-godot_sprite_config({ action: "get_default" })
-```
-
-## Parameters
-
-### godot_generate_image
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| prompt | string | — | Image generation prompt |
-| provider | string | gemini_flash | Image generation provider |
-| width | integer | 1024 | Image width |
-| height | integer | 1024 | Image height |
-| num_images | integer | 1 | Number of images |
-| grid_cols | integer | 4 | Sprite sheet columns |
-| grid_rows | integer | 4 | Sprite sheet rows |
-| crop_mode | enum | auto | Crop mode: auto/fixed/none |
-| output_path | string | ./output/sprite_sheet.png | Output path |
-
-### godot_sprite_sheet
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| image_path | string | — | Input image path or DSH attachment |
-| grid_cols | integer | 4 | Number of columns |
-| grid_rows | integer | 4 | Number of rows |
-| crop_mode | enum | auto | auto/fixed/none |
-| spacing | integer | 0 | Pixel spacing between cells |
-| cell_width | integer | 32 | Cell width (fixed mode) |
-| cell_height | integer | 32 | Cell height (fixed mode) |
-| output_path | string | ./output/sprite_sheet.png | Output path |
-| padding | integer | 0 | Padding around cells |
-
-## Setup API Keys
-
-```javascript
-// Gemini Flash (Free tier)
-godot_sprite_config({ 
-  action: "set_key", 
-  provider: "gemini_flash", 
-  api_key: "AIzaSy..." 
-})
-
-// Stable Diffusion (Free tier)
-godot_sprite_config({ 
-  action: "set_key", 
-  provider: "stable_diffusion", 
-  api_key: "sd-api-key..." 
-})
+sprite_sprite_config({ action: "list" })
 ```
 
 ## Godot Integration
 
-1. Import the PNG into your Godot project
+1. Import the generated PNG into your Godot project
 2. Add a `SpriteFrames` node
 3. Create a new resource, import the PNG
 4. Enable **Region** in the inspector
@@ -135,10 +197,10 @@ godot_sprite_config({
 
 - Node.js >= 18
 - Python 3.8+
-- PIL (Pillow)
+- Pillow + NumPy
 
 ```bash
-pip install Pillow
+pip install Pillow numpy
 ```
 
 ## Development

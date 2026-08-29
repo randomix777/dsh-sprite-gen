@@ -1,8 +1,8 @@
 /**
- * Browser (client) half of dsh-godot-sprite.
+ * Browser (client) half of dsh-sprite-gen.
  *
  * Registers a settings card under `settings.plugin.item` keyed on the
- * `godot-sprite` settings namespace. Reads/writes through the settings scope
+ * `sprite-gen` settings namespace. Reads/writes through the settings scope
  * and API credentials, following the DSH client contract.
  *
  * NOTE: this file is the *source*. The packaged `lib/client.js` is produced by
@@ -11,7 +11,7 @@
 
 import { createElement as h, useState, useEffect } from 'react';
 
-const NAMESPACE = 'godot-sprite';
+const NAMESPACE = 'sprite-gen';
 
 const PROVIDERS = [
   { id: 'gemini_flash', name: 'Google Gemini Flash', free: true },
@@ -19,7 +19,7 @@ const PROVIDERS = [
   { id: 'agnes', name: 'Agnes AI', free: true }
 ];
 
-const CREDENTIAL_REF = (providerId) => `godot-sprite:${providerId}`;
+const CREDENTIAL_REF = (providerId) => `sprite-gen:${providerId}`;
 
 const STYLE = `
 .dsh-gs-card{list-style:none;margin:0;border:1px solid #e3e3e3;border-radius:8px;overflow:hidden;background:var(--ds-bg,#fff)}
@@ -134,7 +134,7 @@ function GodotSpriteSettingsCard(props) {
         h('button', { className: 'dsh-gs-btn dsh-gs-primary', onClick: saveDefaults }, '保存设置')
       ]),
       message ? h('div', { className: `dsh-gs-msg${msgErr ? ' err' : ''}` }, message) : null,
-      h('div', { className: 'dsh-gs-note' }, 'API Key 存储于 DSH 凭据;完整网格参数与更多设置可在对话中使用 godot_sprite_config 工具管理。')
+      h('div', { className: 'dsh-gs-note' }, 'API Key 存储于 DSH 凭据;完整网格参数与更多设置可在对话中使用 sprite__config 工具管理。')
     ])
   ]);
 }
@@ -166,4 +166,4 @@ function apply(ctx) {
 }
 
 export { GodotSpriteSettingsCard, apply, inject };
-export const name = 'godot-sprite-client';
+export const name = 'sprite-gen-client';

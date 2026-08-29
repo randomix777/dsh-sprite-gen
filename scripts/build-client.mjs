@@ -1,5 +1,5 @@
 /**
- * Builds the browser client bundle for dsh-godot-sprite.
+ * Builds the browser client bundle for dsh-sprite-gen.
  *
  * Transforms `src/client/index.js` (ESM) into the DSH loader lazy-CJS factory
  * artifact written to `lib/client.js`. The output matches the format produced
@@ -23,7 +23,7 @@ const SRC = path.join(root, 'src', 'client', 'index.js');
 const OUT = path.join(root, 'lib', 'client.js');
 
 /** Loader entry name; must match the package identity DSH scans for. */
-const ID = 'dsh-godot-sprite';
+const ID = 'dsh-sprite-gen';
 
 function build() {
   let src = readFileSync(SRC, 'utf8');
