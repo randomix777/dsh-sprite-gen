@@ -32,8 +32,8 @@ url: https://github.com/$Repo
 name: $Repo
 category: tools
 description:
-  en: Sprite sheet generator with AI image generation using free providers (Gemini Flash, Stable Diffusion, Agnes AI). Auto-crops transparent edges and arranges sprites into Godot-compatible grids.
-  zh: Godot 精灵图生成器，使用免费 AI 图片生成服务（Gemini Flash、Stable Diffusion、Agnes AI）。自动裁剪透明边、网格排列，输出与 Godot AnimationPlayer 兼容的精灵图集。
+  en: Sprite sheet generator with AI image generation (Gemini Flash, Stable Diffusion, Agnes AI, ComfyUI local). 18 tools: generate, cutout, tileset, GIF export, Tiled JSON, Aseprite import, video→sprite, palette quantization, animation sequences, weapons/effects, backgrounds. Auto-crops transparent edges and arranges sprites into grids.
+  zh: 精灵图生成器，支持 Gemini Flash、Stable Diffusion、Agnes AI、ComfyUI 本地节点。18 个工具：生成/抠图/色板量化/视频提取/GIF 导出/Tiled JSON/Aseprite 导入/动画序列/武器特效/背景。自动裁剪透明边并网格排列。
 "@
 
 # Create PR body
@@ -42,9 +42,10 @@ $prBody = @"
 
 Sprite Sheet Generator with AI Image Generation for DeepSeek Harness.
 
-- Generates pixel art sprites via free AI (Gemini Flash, Stable Diffusion, Agnes AI)
+- Generates pixel art sprites via AI (Gemini Flash, Stable Diffusion, Agnes AI, ComfyUI local)
+- 18 tools: generate, cutout, tileset, GIF export, Tiled JSON, Aseprite import, video→sprite, palette quantization, animation, weapons, effects, backgrounds
 - Auto-crops transparent edges
-- Arranges into Godot-compatible sprite sheets
+- Arranges into configurable sprite sheets
 - Full DSH client settings panel support
 
 **Category:** tools
