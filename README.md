@@ -42,11 +42,11 @@ pnpm add file:/path/to/dsh-sprite-gen
 
 | Tool | Description |
 |------|-------------|
-| `sprite_sprite_config` | Manage API keys, providers, and defaults |
+| `sprite_config` | Manage API keys, providers, and defaults |
 | `sprite_generate_image` | Generate image + convert to sprite sheet |
-| `sprite_sprite_sheet` | Process existing image into sprite sheet |
+| `sprite_sheet` | Process existing image into sprite sheet |
 | `sprite_cutout` | Background cutout with validation |
-| `sprite_sprite_info` | View plugin info and configuration |
+| `sprite_info` | View plugin info and configuration |
 
 ### Animation & Effects
 
@@ -66,6 +66,11 @@ pnpm add file:/path/to/dsh-sprite-gen
 | `sprite_batch_generate` | Batch generate multiple AI sprites |
 | `sprite_batch_process` | Batch process multiple images |
 | `sprite_generate_background` | Generate 3-layer parallax backgrounds |
+| `sprite_gif_export` | Export sprite sheet PNG to animated GIF |
+| `sprite_tiled_export` | Export sprite sheet to Tiled editor JSON |
+| `sprite_aseprite_import` | Import .aseprite files to sprite sheets/frames |
+| `sprite_tileset_batch` | Slice terrain atlas into per-terrain tile variants |
+| `sprite_video2dsprite` | Extract frames from video → sprite sheets + GIF |
 | `sprite_gif_export` | Export sprite sheet PNG to animated GIF |
 
 ## Usage Examples
