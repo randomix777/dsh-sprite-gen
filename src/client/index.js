@@ -41,6 +41,16 @@ const STYLE = `
 .dsh-gs-msg{font-size:12px;color:#2f9e44;margin-top:8px}
 .dsh-gs-msg.err{color:#d64545}
 .dsh-gs-note{font-size:11px;color:var(--ds-fg-muted,#777);margin-top:8px}
+/* Preview panel */
+.dsh-gp-wrap{padding:12px 0}
+.dsh-gp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:8px;margin-top:8px}
+.dsh-gp-item{border:1px solid #e3e3e3;border-radius:6px;overflow:hidden;background:var(--ds-bg,#fff);cursor:pointer;transition:border-color .15s}
+.dsh-gp-item:hover{border-color:var(--ds-accent,#2f6fed)}
+.dsh-gp-item img{width:100%;height:120px;object-fit:contain;display:block;background:#1a1a2e}
+.dsh-gp-label{font-size:11px;padding:4px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ds-fg-muted,#777)}
+.dsh-gp-empty{font-size:12px;color:var(--ds-fg-muted,#777);padding:16px 0;text-align:center}
+.dsh-gp-refresh{font-size:11px;padding:4px 8px;border:1px solid #d0d0d0;border-radius:4px;background:transparent;cursor:pointer;color:inherit;margin-bottom:8px}
+.dsh-gp-refresh:hover{border-color:var(--ds-accent,#2f6fed)}
 `;
 
 function GodotSpriteSettingsCard(props) {
@@ -141,9 +151,87 @@ function GodotSpriteSettingsCard(props) {
 
 const inject = ['slots', 'connection', 'remote', 'settingsScope', 'locale'];
 
+/**
+ * Output Preview Panel — shows recently generated sprites as thumbnails.
+ * Polls the host via sprite_preview_list and loads thumbnails via sprite_preview_image.
+ */
+function OutputPreviewPanel(props) {
+  const { remote, api } = props;
+  const [outputs, setOutputs] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [thumbs, setThumbs] = useState({}); // id -> dataUrl
+  const [error, setError] = useState('');
+
+  const refresh = async () => {
+    setLoading(true);
+    setError('');
+    try {
+      const res = await remote.call('sprite_preview_list', { limit: 20 });
+      if (res.success && res.outputs) {
+        setOutputs(res.outputs);
+      } else {
+        setError(res.error || 'Failed to load outputs');
+      }
+    } catch (err) {
+      setError(String(err));
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const loadThumb = async (entry) => {
+    if (thumbs[entry.id]) return;
+    try {
+      const res = await remote.call('sprite_preview_image', { path: entry.path, max_width: 512 });
+      if (res.success && res.data_url) {
+        setThumbs(prev => ({ ...prev, [entry.id]: res.data_url }));
+      }
+    } catch (_) {}
+  };
+
+  useEffect(() => { refresh(); }, []);
+
+  const openInNewTab = (dataUrl) => {
+    if (!dataUrl) return;
+    const w = window.open();
+    if (w) { w.document.write(`<img src="${dataUrl}" style="max-width:100%">`); }
+  };
+
+  return h('div', { className: 'dsh-gp-wrap' }, [
+    h('div', { style: { display: 'flex', justifyContent: 'space-between', alignItems: 'center' } }, [
+      h('span', { style: { fontSize: '13px', fontWeight: 600 } }, '最近生成'),
+      h('button', {
+        className: 'dsh-gp-refresh',
+        onClick: refresh,
+        disabled: loading
+      }, loading ? '加载中…' : '刷新')
+    ]),
+    error ? h('div', { className: 'dsh-gs-msg err', style: { marginTop: '8px' } }, error) : null,
+    outputs.length === 0 && !loading
+      ? h('div', { className: 'dsh-gp-empty' }, '暂无生成记录，执行生成工具后会显示在这里')
+      : h('div', { className: 'dsh-gp-grid' },
+          outputs.map((entry) => {
+            const dataUrl = thumbs[entry.id];
+            return h('div', {
+              key: entry.id,
+              className: 'dsh-gp-item',
+              onClick: () => { if (dataUrl) openInNewTab(dataUrl); else loadThumb(entry); },
+              onMouseEnter: () => { if (!dataUrl) loadThumb(entry); }
+            }, [
+              dataUrl
+                ? h('img', { src: dataUrl, alt: entry.label })
+                : h('div', { style: { height: 120, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#1a1a2e', color: '#555', fontSize: '11px' } },
+                    entry.path ? '点击查看' : '加载中…'),
+              h('div', { className: 'dsh-gp-label', title: entry.path }, entry.label)
+            ]);
+          })
+        )
+  ]);
+}
+
 function apply(ctx) {
   const scope = ctx.settingsScope.bind({ namespace: NAMESPACE });
-  const { api } = ctx.get('connection');
+  const { api, remote } = ctx.get('connection');
 
   ctx.effect(() => {
     const style = document.createElement('style');
@@ -156,14 +244,22 @@ function apply(ctx) {
   ctx.slots.inject('settings.plugin.item', () => ctx.slots.register({
     name: 'settings.plugin.item',
     key: NAMESPACE,
-    locale: 'settings.godotSprite',
+    locale: 'settings.Sprite',
     inject: () => ({
       scope,
       credentials: api.credentials,
       locale: ctx.get('locale')
     })
   }, GodotSpriteSettingsCard));
+
+  // Inject output preview panel into a dedicated slot
+  ctx.slots.inject('settings.plugin.item', () => ctx.slots.register({
+    name: 'settings.plugin.item',
+    key: `${NAMESPACE}-preview`,
+    locale: 'settings.SpritePreview',
+    inject: () => ({ remote, api })
+  }, OutputPreviewPanel));
 }
 
-export { GodotSpriteSettingsCard, apply, inject };
+export { GodotSpriteSettingsCard, OutputPreviewPanel, apply, inject };
 export const name = 'sprite-gen-client';

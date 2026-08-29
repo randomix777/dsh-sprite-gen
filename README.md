@@ -103,6 +103,13 @@ pnpm add file:/path/to/dsh-sprite-gen
 | `sprite_tileset_batch_qc` | Enhanced terrain tile bundle with edge_policy (isolated/seamless), contrast QC, pairwise PSNR variant-diff, material hints |
 | `sprite_platform_strip` | Reusable side-scrolling platform strips (left/middle/right cap) with collision metadata |
 
+### Preview
+
+| Tool | Description |
+|------|-------------|
+| `sprite_preview_list` | List recently generated sprite outputs with paths and timestamps |
+| `sprite_preview_image` | Read a local image file and return as base64 data URL for client-side preview |
+
 ## Usage Examples
 
 ### Generate Character with Animation
