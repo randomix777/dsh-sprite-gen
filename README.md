@@ -74,6 +74,18 @@ pnpm add file:/path/to/dsh-sprite-gen
 | `sprite_palette_quantize` | Quantize to retro palettes (GameBoy, NES, Pico-8, etc.) |
 | `sprite_detect` | Auto-detect sprite grid layout from PNG sheet |
 
+### Character Consistency
+
+| Tool | Description |
+|------|-------------|
+| `sprite_character_create` | Create persistent character identity (name, description, ref image, seed) |
+| `sprite_character_get` | Get character identity by ID |
+| `sprite_character_list` | List all saved character identities |
+| `sprite_character_delete` | Delete a character identity |
+| `sprite_character_generate` | Generate sprite with character consistency (strength tuning, fixed seed) |
+| `sprite_character_sheet` | Multi-view character sheet (front/side/back) with consistent appearance |
+| `sprite_character_views` | List available view types for character sheet |
+
 ## Usage Examples
 
 ### Generate Character with Animation
