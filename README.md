@@ -14,7 +14,7 @@ Sprite Sheet Generator with AI Image Generation for DeepSeek Harness.
 - ?? **Effects Generation** - Bullets, fire, explosions, smoke, sparks
 - ?? **Weapon/Equipment Sprites** - Guns, swords, armor, helmets
 - ?? **Batch Generation** - Generate multiple assets in one call
-- ?? **Godot Ready** - Output compatible with Godot AnimationPlayer
+- ?? **GIF Export** - Export sprite sheets to animated GIF for preview
 
 ## Supported Providers
 
@@ -66,6 +66,7 @@ pnpm add file:/path/to/dsh-sprite-gen
 | `sprite_batch_generate` | Batch generate multiple AI sprites |
 | `sprite_batch_process` | Batch process multiple images |
 | `sprite_generate_background` | Generate 3-layer parallax backgrounds |
+| `sprite_gif_export` | Export sprite sheet PNG to animated GIF |
 
 ## Usage Examples
 
@@ -153,6 +154,19 @@ sprite_generate_background({
   character_prompt: "post-apocalyptic survivor in wasteland",
   character_image_url: "https://example.com/character.png",
   provider: "agnes"
+})
+```
+
+### Export to GIF
+
+```javascript
+// Convert a sprite sheet PNG to animated GIF
+sprite_gif_export({
+  image_path: "./sprites/player_walk.png",
+  output_path: "./sprites/player_walk.gif",
+  fps: 12,
+  grid_cols: 4,
+  grid_rows: 1
 })
 ```
 

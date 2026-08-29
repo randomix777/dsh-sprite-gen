@@ -4,6 +4,7 @@ import base64
 from PIL import Image
 import numpy as np
 import os
+import importlib.util
 
 def auto_crop(img, threshold=1):
     """Crop transparent edges from an image."""
@@ -275,6 +276,11 @@ if __name__ == '__main__':
     cmd = args.pop('command', 'sprite_sheet')
     if cmd == 'cutout':
         result = run_cutout(args)
+    elif cmd == 'gif_export':
+        spec = importlib.util.spec_from_file_location("gif_export", os.path.join(os.path.dirname(__file__), "gif_export.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        result = mod.gif_export(args)
     else:
         result = generate_sprite_sheet(args)
     print(json.dumps(result))
