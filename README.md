@@ -71,7 +71,8 @@ pnpm add file:/path/to/dsh-sprite-gen
 | `sprite_aseprite_import` | Import .aseprite files to sprite sheets/frames |
 | `sprite_tileset_batch` | Slice terrain atlas into per-terrain tile variants |
 | `sprite_video2dsprite` | Extract frames from video → sprite sheets + GIF |
-| `sprite_gif_export` | Export sprite sheet PNG to animated GIF |
+| `sprite_palette_quantize` | Quantize to retro palettes (GameBoy, NES, Pico-8, etc.) |
+| `sprite_detect` | Auto-detect sprite grid layout from PNG sheet |
 
 ## Usage Examples
 
