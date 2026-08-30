@@ -275,7 +275,10 @@ if __name__ == '__main__':
     args = json.loads(base64.b64decode(encoded).decode())
     cmd = args.pop('command', 'sprite_sheet')
     if cmd == 'cutout':
-        result = run_cutout(args)
+        spec = importlib.util.spec_from_file_location("cutout", os.path.join(os.path.dirname(__file__), "cutout.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        result = mod.cutout(args)
     elif cmd == 'gif_export':
         spec = importlib.util.spec_from_file_location("gif_export", os.path.join(os.path.dirname(__file__), "gif_export.py"))
         mod = importlib.util.module_from_spec(spec)
@@ -346,6 +349,11 @@ if __name__ == '__main__':
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         result = mod.build_strip(args)
+    elif cmd == 'analyze':
+        spec = importlib.util.spec_from_file_location("analysis", os.path.join(os.path.dirname(__file__), "analysis.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        result = mod.analyze(args)
     else:
         result = generate_sprite_sheet(args)
     print(json.dumps(result))

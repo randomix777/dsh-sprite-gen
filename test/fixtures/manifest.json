@@ -1,0 +1,48 @@
+{
+  "fixtures": [
+    {
+      "name": "solid_bg_character.png",
+      "desc": "character on solid grey bg"
+    },
+    {
+      "name": "checkerboard_grey_character.png",
+      "desc": "character on grey/white checkerboard"
+    },
+    {
+      "name": "checkerboard_bw_weapon.png",
+      "desc": "weapon on black/white checkerboard"
+    },
+    {
+      "name": "metal_weapon.png",
+      "desc": "metallic weapon with white highlights"
+    },
+    {
+      "name": "character_eye_clothes.png",
+      "desc": "character with white eyes + light clothes"
+    },
+    {
+      "name": "valid_asset.png",
+      "desc": "clean transparent asset (corners transparent)"
+    },
+    {
+      "name": "empty_image.png",
+      "desc": "fully transparent empty image"
+    },
+    {
+      "name": "isolated_fragments.png",
+      "desc": "main blob + many small isolated fragments"
+    },
+    {
+      "name": "subject_at_edge.png",
+      "desc": "content touching all four borders"
+    },
+    {
+      "name": "non_divisible_sheet.png",
+      "desc": "516x516 not divisible by 64 (grid test)"
+    },
+    {
+      "name": "sparse_effect_sheet.png",
+      "desc": "9 cells sparse effect atlas"
+    }
+  ]
+}

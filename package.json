@@ -19,7 +19,11 @@
   ],
   "scripts": {
     "build-client": "node scripts/build-client.mjs",
-    "test": "node --test test/*.mjs"
+    "test": "node --test test/test.mjs && python -m unittest discover -s test -v",
+    "test:node": "node --test test/test.mjs",
+    "test:python": "python -m unittest discover -s test -v",
+    "test:fixtures": "python test/create_fixtures.py",
+    "smoke": "node test/smoke.mjs"
   },
   "dsh": {
     "bundle": {
